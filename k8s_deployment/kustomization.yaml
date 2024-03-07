@@ -1,0 +1,11 @@
+configMapGenerator:
+- name: foxglove-demo
+  files:
+  - default-layout.json 
+generatorOptions:
+   disableNameSuffixHash: true
+resources:
+- foxglove-zenoh.yaml
+- zenoh-router.yaml
+- mqtt-broker.yaml
+
