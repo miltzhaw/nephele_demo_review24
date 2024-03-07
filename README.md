@@ -3,9 +3,9 @@ This repository contains the deployment files and image creation for the robotic
 
 Use the following command to deploy on the kubernets cluster:
 
-''' 
+``
 kubectl apply -k k8s_deployment -n <namespace>
-'''
+``
 
 You will deploy:
 
