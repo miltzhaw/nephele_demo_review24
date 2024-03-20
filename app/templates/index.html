@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask App</title>
+</head>
+<body>
+    <h1>Flask App</h1>
+    <form action="/trigger_execution" method="post">
+        <button type="submit">Trigger Execution</button>
+    </form>
+    {% if execution_status %}
+        <p>Execution Status: {{ execution_status }}</p>
+    {% endif %}
+    <hr>
+    <form action="/read_data" method="post">
+        <button type="submit">Read Data</button>
+    </form>
+    {% if data %}
+        <h2>Data</h2>
+        <pre>{{ data }}</pre>
+    {% endif %}
+</body>
+</html>
+
