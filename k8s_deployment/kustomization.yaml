@@ -8,4 +8,4 @@ resources:
 - foxglove-zenoh.yaml
 - zenoh-router.yaml
 - mqtt-broker.yaml
-
+- flask-app.yaml
