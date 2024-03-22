@@ -10,8 +10,9 @@ configMapGenerator:
 generatorOptions:
    disableNameSuffixHash: true
 resources:
-- foxglove-zenoh.yaml
 - zenoh-router.yaml
 - mqtt-broker.yaml
 - flask-app.yaml
 - vo-1_deploy.yaml
+- foxglove-zenoh.yaml
+

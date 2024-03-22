@@ -33,7 +33,7 @@ spec:
         readinessProbe:
           httpGet:
             path: /
-            port: 9090
+            port: 30886 
           initialDelaySeconds: 10
           periodSeconds: 10
         env:

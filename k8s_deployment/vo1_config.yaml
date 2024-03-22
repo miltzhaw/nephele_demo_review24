@@ -7,23 +7,18 @@ resourceType:
   specification: WoT
   version: 1.1
 deploymentType: A
-catalogue: 9090
+catalogue: 30886 
 bindingNB:
   bindingModeNB: [H]
   hostname: vo-tb2
   ports:
-    httpPort: 8080
+    httpPort: 30885
   securityNB:
     securityScheme: bearer
     token: token
 bindingSB:
   bindingModeSB: [M]
   brokerIP: mqtt://160.85.253.140:30884
-  securitySB:
-      securitySBMQTT:
-        securityScheme: basic
-        username: user
-        password: pass
 databaseConfig:
   # timeseriesDB:
   #   influxDB: enabled
@@ -39,7 +34,7 @@ periodicFunction:
   read_property_from_tb2: 5000
 consumedVOs:
   tb2:
-    url: "http://160.85.253.140:9090/tb2"
+    url: "http://160.85.253.140:30886/tb2"
 proxy:
   # propertiesMap:
   #   allAvailableResources: tb2
