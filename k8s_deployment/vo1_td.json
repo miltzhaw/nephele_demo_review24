@@ -1,7 +1,7 @@
 {
-    "title": "vo-tb2",
-    "id": "urn:dev:wot:vo-tb2",
-    "description": "Descriptor for vo-tb2 for tb2.",
+    "title": "vo1",
+    "id": "urn:dev:wot:vo1",
+    "description": "Descriptor for vo1 for tb2.",
     "securityDefinitions": {
         "bearer_sc": {
             "scheme": "bearer"

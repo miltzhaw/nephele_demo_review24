@@ -1,28 +1,33 @@
 # ====================================
-# Vo-tb2 Descriptor
+# Vo1 Descriptor
 # ====================================
-name: vo-tb2
+name: vo1
 type: VO
 resourceType:
   specification: WoT
   version: 1.1
 deploymentType: A
-catalogue: 30886 
+catalogue: 9090 
 bindingNB:
   bindingModeNB: [H]
-  hostname: vo-tb2
+  hostname: vo1
   ports:
-    httpPort: 30885
+    httpPort: 8080
   securityNB:
     securityScheme: bearer
     token: token
 bindingSB:
   bindingModeSB: [M]
   brokerIP: mqtt://160.85.253.140:30884
+  securitySB:
+      securitySBMQTT:
+        securityScheme: basic
+        username: user
+        password: pass
 databaseConfig:
   # timeseriesDB:
   #   influxDB: enabled
-  #   address: "http://wotpy-influxdb-vo-tb2:8086"
+  #   address: "http://wotpy-influxdb-vo1:8086"
   #   dbUser: my-username
   #   dbPass: my-password
   #   dbToken: my-token
@@ -34,7 +39,7 @@ periodicFunction:
   read_property_from_tb2: 5000
 consumedVOs:
   tb2:
-    url: "http://160.85.253.140:30886/tb2"
+    url: "http://160.85.253.140:9090/tb2"
 proxy:
   # propertiesMap:
   #   allAvailableResources: tb2
