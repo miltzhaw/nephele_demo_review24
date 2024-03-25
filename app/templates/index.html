@@ -14,7 +14,16 @@
         <p>Execution Status: {{ execution_status }}</p>
     {% endif %}
     <hr>
-    <form action="/read_data" method="post">
+    
+    <form action="/current_values" method="get">
+        <button type="submit">Current Values</button>
+    </form>
+    {% if current_status %}
+        <p>Current Values: {{ current_status }}</p>
+    {% endif %}
+    <hr>
+    
+    <form action="/read_data" method="get">
         <button type="submit">Read Data</button>
     </form>
     {% if data %}

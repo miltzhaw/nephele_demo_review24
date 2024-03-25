@@ -16,7 +16,8 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     return render_template('index.html')
-
+   
+    
 @app.route('/trigger_execution', methods=['POST'])
 def trigger_execution():
     result = asyncio.run(trigger())
@@ -37,8 +38,28 @@ async def trigger():
    #desired_launch_file_id = "startmapping"
     result = await consumed_thing.invoke_action("triggerBringup", {'launchfileId': "startmapping" }) # desired_launch_file_id=[bringup, startmapping, saveMap]
     return result
+    
+@app.route('/current_values', methods=['GET'])
+def current_values():
+    result = asyncio.run(current())
+    print("current", result)
+    return render_template('index.html', current_status=result)
 
-@app.route("/read_data")
+async def current():
+    http_client = HTTPClient()
+    security_scheme_dict = {
+        "scheme": "bearer"
+    }
+    credentials_dict = {
+        "token": "token"
+    }
+    http_client.set_security(security_scheme_dict, credentials_dict)
+    wot = WoT(servient=Servient(clients=[http_client]))
+    consumed_thing = await wot.consume_from_url("http://vo1:9090/vo1")
+    result = await consumed_thing.invoke_action("currentValues") 
+    return result
+
+@app.route("/read_data", methods=['GET'])
 def read_data():
     result = asyncio.run(read())
     print("read", result)

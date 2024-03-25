@@ -18,15 +18,15 @@ def read_from_sensor(sensorType):
         print(f"Sensor type '{sensorType}' is not supported.")
         return None
     
-    battery_percent = None 
-    battery_charging = None
+    battery_percent = 100 
+    battery_charging = True
 
     class BatteryRead(Node):
         def __init__(self):
             super().__init__('battery_read')
             self.subscription = self.create_subscription(DiagnosticArray, '/diagnostics', self.diagnostics_callback, 10)
-            self.battery_percent_pub = self.create_publisher(Float32, '/battery_level', 10)
-            self.battery_charging_pub = self.create_publisher(Bool, '/battery_charging', 10)
+           # self.battery_percent_pub = self.create_publisher(Float32, '/battery_level', 10)
+           # self.battery_charging_pub = self.create_publisher(Bool, '/battery_charging', 10)
 
         def diagnostics_callback(self, msg):
             nonlocal battery_percent
@@ -43,14 +43,14 @@ def read_from_sensor(sensorType):
                             elif item.value == 'Not Charging':
                                 battery_charging = False
 
-            if battery_percent is not None:
-                msg_percentage = Float32()
-                msg_percentage.data = battery_percent
-                self.battery_percent_pub.publish(msg_percentage)
-            if battery_charging is not None:
-                msg_charging = Bool()
-                msg_charging.data = battery_charging
-                self.battery_charging_pub.publish(msg_charging)
+           # if battery_percent is not None:
+           #     msg_percentage = Float32()
+           #     msg_percentage.data = battery_percent
+           #     self.battery_percent_pub.publish(msg_percentage)
+           # if battery_charging is not None:
+           #     msg_charging = Bool()
+           #     msg_charging.data = battery_charging
+           #     self.battery_charging_pub.publish(msg_charging)
 
     def main():
         rclpy.init()

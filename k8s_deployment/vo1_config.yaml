@@ -41,8 +41,8 @@ consumedVOs:
   tb2:
     url: "http://ngnix-service/tb2"
 proxy:
- # propertiesMap:
- #   allAvailableResources: tb2
+  propertiesMap:
+    allAvailableResources: tb2
   actionsMap:
     triggerBringup: tb2
     currentValues: tb2
