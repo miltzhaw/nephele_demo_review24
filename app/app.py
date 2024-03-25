@@ -34,9 +34,8 @@ async def trigger():
     http_client.set_security(security_scheme_dict, credentials_dict)
     wot = WoT(servient=Servient(clients=[http_client]))
     consumed_thing = await wot.consume_from_url("http://vo1:9090/vo1")
-    desired_launch_file_id = "startmapping"
-    result = await consumed_thing.invoke_action("triggerBringup", {'launchfileId': desired_launch_file_id }) # desired_launch_file_id=[bringup, startmapping, saveMap]
-    print(result)
+   #desired_launch_file_id = "startmapping"
+    result = await consumed_thing.invoke_action("triggerBringup", {'launchfileId': "startmapping" }) # desired_launch_file_id=[bringup, startmapping, saveMap]
     return result
 
 @app.route("/read_data")
@@ -57,6 +56,8 @@ async def read():
     wot = WoT(servient=Servient(clients=[http_client]))
     consumed_thing = await wot.consume_from_url("http://vo1:9090/vo1")
     result = await consumed_thing.properties["allAvailableResources"].read()
+    #result = await consumed_thing.invoke_action("currentValues")
+    print(result)
     return result
 
 if __name__ == "__main__":

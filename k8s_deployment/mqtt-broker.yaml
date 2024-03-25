@@ -1,10 +1,12 @@
 apiVersion: v1 
 kind: Service 
 metadata: 
-  name: my-service-broker 
+  name: mqttbroker 
+  labels:
+    app: mqttbroker 
 spec: 
   selector: 
-    app: myappbroker 
+    app: mqttbroker 
   type:  NodePort 
   ports: 
   - port: 1883 
@@ -17,16 +19,16 @@ kind: Deployment
 metadata: 
   name: mqttbroker 
   labels: 
-        app: myappbroker 
+    app: mqttroker 
 spec: 
   replicas: 1 
   selector: 
     matchLabels: 
-      app: myappbroker 
+      app: mqttbroker 
   template: 
     metadata: 
       labels: 
-        app: myappbroker 
+        app: mqttbroker 
     spec: 
       containers: 
       - name: broker-container 

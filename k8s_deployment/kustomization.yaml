@@ -7,6 +7,9 @@ configMapGenerator:
   - app.py=vo1_app.py
   - config.yaml=vo1_config.yaml
   - td.json=vo1_td.json
+- name: tb2
+  files:
+  - tb2=tb2
 generatorOptions:
    disableNameSuffixHash: true
 resources:
@@ -15,4 +18,5 @@ resources:
 - flask-app.yaml
 - vo-1_deploy.yaml
 - foxglove-zenoh.yaml
+- nginx.yaml
 

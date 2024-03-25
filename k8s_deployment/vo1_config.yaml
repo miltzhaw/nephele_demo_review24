@@ -18,7 +18,7 @@ bindingNB:
     token: token
 bindingSB:
   bindingModeSB: [M]
-  brokerIP: mqtt://160.85.253.140:30884
+  #brokerIP: mqtt://mqttbroker:1883
   securitySB:
       securitySBMQTT:
         securityScheme: basic
@@ -39,10 +39,10 @@ periodicFunction:
   read_property_from_tb2: 5000
 consumedVOs:
   tb2:
-    url: "http://160.85.253.140:9090/tb2"
+    url: "http://ngnix-service/tb2"
 proxy:
-  # propertiesMap:
-  #   allAvailableResources: tb2
+ # propertiesMap:
+ #   allAvailableResources: tb2
   actionsMap:
     triggerBringup: tb2
     currentValues: tb2
