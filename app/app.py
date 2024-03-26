@@ -20,11 +20,12 @@ def index():
     
 @app.route('/trigger_execution', methods=['POST'])
 def trigger_execution():
-    result = asyncio.run(trigger())
+    launchfile_id = request.form['launchfile_id']
+    result = asyncio.run(trigger(launchfile_id))
     print("trigger", result)
     return render_template('index.html', execution_status=result)
 
-async def trigger():
+async def trigger(launchfile_id):
     http_client = HTTPClient()
     security_scheme_dict = {
         "scheme": "bearer"
@@ -36,7 +37,7 @@ async def trigger():
     wot = WoT(servient=Servient(clients=[http_client]))
     consumed_thing = await wot.consume_from_url("http://vo1:9090/vo1")
    #desired_launch_file_id = "startmapping"
-    result = await consumed_thing.invoke_action("triggerBringup", {'launchfileId': "startmapping" }) # desired_launch_file_id=[bringup, startmapping, saveMap]
+    result = await consumed_thing.invoke_action("triggerBringup", {'launchfileId': launchfile_id }) # desired_launch_file_id=[bringup, startmapping, saveMap]
     return result
     
 @app.route('/current_values', methods=['GET'])

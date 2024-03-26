@@ -18,13 +18,13 @@ def read_from_sensor(sensorType):
         print(f"Sensor type '{sensorType}' is not supported.")
         return None
     
-    battery_percent = 100 
-    battery_charging = True
+    battery_percent = None 
+    battery_charging = None
 
     class BatteryRead(Node):
         def __init__(self):
             super().__init__('battery_read')
-            self.subscription = self.create_subscription(DiagnosticArray, '/diagnostics', self.diagnostics_callback, 10)
+            self.subscription = self.create_subscription(DiagnosticArray, '/diagnostics', self.diagnostics_callback, 20)
            # self.battery_percent_pub = self.create_publisher(Float32, '/battery_level', 10)
            # self.battery_charging_pub = self.create_publisher(Bool, '/battery_charging', 10)
 
@@ -38,7 +38,7 @@ def read_from_sensor(sensorType):
                             battery_percent = float(item.value)
                             # print(f'battery percent is {self.battery_level}%')
                         if item.key == 'Charging State':
-                            if item.value == 'Trickle Charging':
+                            if item.value == 'Trickle Charging' or 'Full Charging':
                                 battery_charging = True
                             elif item.value == 'Not Charging':
                                 battery_charging = False
@@ -69,7 +69,7 @@ allAvailableResources_init = {
     'battery_charging': read_from_sensor('kobuki: Battery')[1],
 }
 
-possibleLaunchfiles_init = ['startmapping', 'bringup', 'saveMap']
+possibleLaunchfiles_init = ['startmapping', 'bringup', 'savemap']
 
 async def triggerBringup_handler(params):
     params = params['input'] if params['input'] else {}
@@ -104,10 +104,10 @@ async def triggerBringup_handler(params):
         else:
             print("Failed to start the launch file.")
             bringupaction = False
-    else:
-        print(f'Battery Percentage: {batterypercent}%')
+    #else:
+    #    print(f'Battery Percentage: {batterypercent}%')
 
-    if launchfileId == 'startmapping' and batterypercent >= 50:
+    if launchfileId == 'startmapping' and batterypercent >= 30:
         # If battery percentage is more than 50, allow to start the mapping launch file
         print("Battery sufficient, start turtlebot2 mapping!")
         process_mapping = subprocess.Popen(['ros2', 'launch', 'slam_toolbox', 'online_async_launch.py'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -119,14 +119,14 @@ async def triggerBringup_handler(params):
         else:
             print("Failed to start mapping.")
             mappingaction = False
-    else:
-        print("Unable to start mapping")
-        mappingaction = False
+    #else:
+        #print("Unable to start mapping")
+        #mappingaction = False
 
-    if launchfileId == 'saveMap' and mappingaction == True:
+    if launchfileId == 'savemap': #and mappingaction == True:
         print("Mapping finished, save the map!")
         process_mapping = subprocess.Popen(['ros2', 'launch', 'turtlebot2_bringup', 'map_save.launch.py'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        time.sleep(8) 
+        time.sleep(10) 
 
         if process_mapping.poll() is None:
             print("Map saved successfully.")

@@ -6,9 +6,17 @@
     <title>Flask App</title>
 </head>
 <body>
-    <h1>Flask App</h1>
+
+ <h1>Select Launchfile</h1>
     <form action="/trigger_execution" method="post">
-        <button type="submit">Trigger Execution</button>
+        <label for="launchfile_id">Select a launchfile:</label><br>
+        <input type="radio" id="bringup" name="launchfile_id" value="bringup">
+        <label for="bringup">Bringup</label><br>
+        <input type="radio" id="startmapping" name="launchfile_id" value="startmapping">
+        <label for="startmapping">Start Mapping</label><br>
+        <input type="radio" id="savemap" name="launchfile_id" value="savemap">
+        <label for="savemap">Save Map</label><br><br>
+        <input type="submit" value="Trigger Execution">
     </form>
     {% if execution_status %}
         <p>Execution Status: {{ execution_status }}</p>
