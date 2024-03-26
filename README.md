@@ -14,11 +14,12 @@ You will deploy:
 - Zenoh Router
 - MQTT broker
 - Simple Flask webapp
+- An nginx webserver to host the tb2 Thing description
 
 After the deployment you can reach the Foxglove Studio (using Chrome webbrowser) at https://foxglove-demo.robopaas.dev/ and open a websocket connection to the bridge to reach the ROS world towards this ingress wss://bridges.robopaas.dev 
 Any ROS topic published to the same Zenoh Router can be shown in the Foxglove dashboard.
 
-The MQTT broker is going to used to expose data from ROS to the outer world using this client https://github.com/ika-rwth-aachen/mqtt_client  
+The MQTT broker is going to used to expose data from ROS to the VO and send actions from the VO (starting from the webapp) to the tb2
 
 The flask webapp GUI can be reached over a K8s ingress at flask-gui.robopaas.dev
 
