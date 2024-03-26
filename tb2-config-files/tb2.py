@@ -24,7 +24,7 @@ def read_from_sensor(sensorType):
     class BatteryRead(Node):
         def __init__(self):
             super().__init__('battery_read')
-            self.subscription = self.create_subscription(DiagnosticArray, '/diagnostics', self.diagnostics_callback, 20)
+            self.subscription = self.create_subscription(DiagnosticArray, '/diagnostics', self.diagnostics_callback, 10)
            # self.battery_percent_pub = self.create_publisher(Float32, '/battery_level', 10)
            # self.battery_charging_pub = self.create_publisher(Bool, '/battery_charging', 10)
 
@@ -158,7 +158,7 @@ async def triggerBringup_handler(params):
         return {'result': bringupaction, 'message': f'Your {launchfileId} is in progress!'}
     elif launchfileId == 'startmapping':
         return {'result': mappingaction, 'message': f'Your {launchfileId} is in progress!'}
-    elif launchfileId == 'saveMap':
+    elif launchfileId == 'savemap':
         return {'result': saveaction, 'message': f'Your {launchfileId} is in progress!'}
     
 async def allAvailableResources_read_handler():
