@@ -33,7 +33,7 @@
                 "type": "string" 
             } 
         }
-    }, 
+    },
     "actions": { 
         "triggerBringup": { 
             "title": "Trigger ROS launchfiles", 
@@ -57,6 +57,19 @@
                     "message": { 
                         "type": "string" 
                     } 
+                } 
+            } 
+        },
+        "mapExport": { 
+            "title": "Export map data", 
+            "description": "Get map data", 
+            "output": { 
+                "type": "object", 
+                "description": "Returns map in string format.", 
+                "properties": { 
+                    "maptoString": { 
+                        "type": "string" 
+                    }
                 } 
             } 
         },

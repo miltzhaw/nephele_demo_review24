@@ -27,6 +27,9 @@ async def read_property_from_tb2():
         #}
     )
     possibleLaunchfiles = await consumed_vos["tb2"].properties['possibleLaunchfiles'].read()
+    
     # Initialize the property values
     await exposed_thing.properties['allAvailableResources'].write(allAvailableResources)
     await exposed_thing.properties['possibleLaunchfiles'].write(possibleLaunchfiles)
+
+

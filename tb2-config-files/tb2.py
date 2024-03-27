@@ -8,6 +8,7 @@ from diagnostic_msgs.msg import DiagnosticArray
 
 import subprocess
 import time
+import base64
 
 logging.basicConfig()
 LOGGER = logging.getLogger()
@@ -25,8 +26,6 @@ def read_from_sensor(sensorType):
         def __init__(self):
             super().__init__('battery_read')
             self.subscription = self.create_subscription(DiagnosticArray, '/diagnostics', self.diagnostics_callback, 10)
-           # self.battery_percent_pub = self.create_publisher(Float32, '/battery_level', 10)
-           # self.battery_charging_pub = self.create_publisher(Bool, '/battery_charging', 10)
 
         def diagnostics_callback(self, msg):
             nonlocal battery_percent
@@ -42,15 +41,6 @@ def read_from_sensor(sensorType):
                                 battery_charging = True
                             elif item.value == 'Not Charging':
                                 battery_charging = False
-
-           # if battery_percent is not None:
-           #     msg_percentage = Float32()
-           #     msg_percentage.data = battery_percent
-           #     self.battery_percent_pub.publish(msg_percentage)
-           # if battery_charging is not None:
-           #     msg_charging = Bool()
-           #     msg_charging.data = battery_charging
-           #     self.battery_charging_pub.publish(msg_charging)
 
     def main():
         rclpy.init()
@@ -70,6 +60,22 @@ allAvailableResources_init = {
 }
 
 possibleLaunchfiles_init = ['startmapping', 'bringup', 'savemap']
+mapdataExportTF_init = [True, False]
+
+def get_map_as_string(map_file_path):
+    try:
+        # Read the PGM file as binary
+        with open(map_file_path, 'rb') as file:
+            pgm_data = file.read()
+
+        # Convert the PGM binary data to a string
+        pgm_string = base64.b64encode(pgm_data).decode('utf-8')
+
+        return pgm_string
+
+    except FileNotFoundError:
+        print("Error: Map file not found.")
+        return None
 
 async def triggerBringup_handler(params):
     params = params['input'] if params['input'] else {}
@@ -160,6 +166,26 @@ async def triggerBringup_handler(params):
         return {'result': mappingaction, 'message': f'Your {launchfileId} is in progress!'}
     elif launchfileId == 'savemap':
         return {'result': saveaction, 'message': f'Your {launchfileId} is in progress!'}
+    
+async def mapExport_handler(params):
+    params = params['input'] if params['input'] else {}
+    #params = params['input'] if params['input'] else {}
+
+    # Default values
+  #  mapdataTF = True
+
+    # Check if params are provided
+  #  mapdataTF = params.get('mapdataTF', mapdataTF)
+
+    ##### I couldn't ssh into tb2, so I am not sure about the exact path, check before running
+    map_file_path = '/home/ros/my_map.pgm'
+    map_string = get_map_as_string(map_file_path)
+
+   # if mapdataTF == True:
+    return map_string
+    #elif mapdataTF == False:
+    #    return {'maptoString': f'No need to export map data!'}
+
     
 async def allAvailableResources_read_handler():
     allAvailableResources_current = {

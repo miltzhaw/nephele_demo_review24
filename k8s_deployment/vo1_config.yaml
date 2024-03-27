@@ -45,5 +45,6 @@ proxy:
     allAvailableResources: tb2
   actionsMap:
     triggerBringup: tb2
+    mapExport: tb2
     currentValues: tb2
 
