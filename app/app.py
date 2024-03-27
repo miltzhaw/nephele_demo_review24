@@ -36,7 +36,6 @@ async def trigger(launchfile_id):
     http_client.set_security(security_scheme_dict, credentials_dict)
     wot = WoT(servient=Servient(clients=[http_client]))
     consumed_thing = await wot.consume_from_url("http://vo1:9090/vo1")
-   #desired_launch_file_id = "startmapping"
     result = await consumed_thing.invoke_action("triggerBringup", {'launchfileId': launchfile_id }) # desired_launch_file_id=[bringup, startmapping, saveMap]
     return result
     

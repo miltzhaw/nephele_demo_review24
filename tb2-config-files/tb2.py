@@ -174,7 +174,7 @@ async def currentValues_handler(params):
         'result': True,
         'message': {
             "battery_percent": read_from_sensor('kobuki: Battery')[0],
-            "battery_status": read_from_sensor('kobuki: Battery')[1]
+            "battery_charging": read_from_sensor('kobuki: Battery')[1]
         }
     }
 
