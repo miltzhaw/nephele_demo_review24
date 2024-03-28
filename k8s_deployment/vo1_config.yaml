@@ -18,19 +18,12 @@ bindingNB:
     token: token
 bindingSB:
   bindingModeSB: [M]
-  #brokerIP: mqtt://mqttbroker:1883
   securitySB:
       securitySBMQTT:
         securityScheme: basic
         username: user
         password: pass
 databaseConfig:
-  # timeseriesDB:
-  #   influxDB: enabled
-  #   address: "http://wotpy-influxdb-vo1:8086"
-  #   dbUser: my-username
-  #   dbPass: my-password
-  #   dbToken: my-token
   persistentDB:
     SQLite: enabled
 genericFunction: [vo_status, device_status]

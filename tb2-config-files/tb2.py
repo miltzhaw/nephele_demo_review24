@@ -35,7 +35,6 @@ def read_from_sensor(sensorType):
                     for item in status.values:
                         if item.key == 'Percent':
                             battery_percent = float(item.value)
-                            # print(f'battery percent is {self.battery_level}%')
                         if item.key == 'Charging State':
                             if item.value == 'Trickle Charging' or 'Full Charging':
                                 battery_charging = True
@@ -46,7 +45,6 @@ def read_from_sensor(sensorType):
         rclpy.init()
         battery_read = BatteryRead()
         rclpy.spin_once(battery_read, timeout_sec=1.0)
-        # rclpy.spin(battery_read)
         battery_read.destroy_node()
         rclpy.shutdown()
 
@@ -110,8 +108,6 @@ async def triggerBringup_handler(params):
         else:
             print("Failed to start the launch file.")
             bringupaction = False
-    #else:
-    #    print(f'Battery Percentage: {batterypercent}%')
 
     if launchfileId == 'startmapping' and batterypercent >= 30:
         # If battery percentage is more than 50, allow to start the mapping launch file
@@ -125,9 +121,6 @@ async def triggerBringup_handler(params):
         else:
             print("Failed to start mapping.")
             mappingaction = False
-    #else:
-        #print("Unable to start mapping")
-        #mappingaction = False
 
     if launchfileId == 'savemap': #and mappingaction == True:
         print("Mapping finished, save the map!")
@@ -169,22 +162,9 @@ async def triggerBringup_handler(params):
     
 async def mapExport_handler(params):
     params = params['input'] if params['input'] else {}
-    #params = params['input'] if params['input'] else {}
-
-    # Default values
-  #  mapdataTF = True
-
-    # Check if params are provided
-  #  mapdataTF = params.get('mapdataTF', mapdataTF)
-
-    ##### I couldn't ssh into tb2, so I am not sure about the exact path, check before running
     map_file_path = '/home/ros/my_map.pgm'
     map_string = get_map_as_string(map_file_path)
-
-   # if mapdataTF == True:
     return map_string
-    #elif mapdataTF == False:
-    #    return {'maptoString': f'No need to export map data!'}
 
     
 async def allAvailableResources_read_handler():
