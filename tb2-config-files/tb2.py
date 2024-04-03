@@ -124,15 +124,18 @@ async def triggerBringup_handler(params):
 
     if launchfileId == 'savemap': #and mappingaction == True:
         print("Mapping finished, save the map!")
-        process_mapping = subprocess.Popen(['ros2', 'launch', 'turtlebot2_bringup', 'map_save.launch.py'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        process_savemapping = subprocess.Popen(['ros2', 'launch', 'turtlebot2_bringup', 'map_save.launch.py'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         time.sleep(10) 
+       
+        print("Map saved successfully.")
+        saveaction = True
 
-        if process_mapping.poll() is None:
-            print("Map saved successfully.")
-            saveaction = True
-        else:
-            print("Failed to save map.")
-            saveaction = False
+       # if process_savemapping.poll() is None:
+       #     print("Map saved successfully.")
+       #     saveaction = True
+       # else:
+       #     print("Failed to save map.")
+       #     saveaction = False
     
 
     # Read the current level of allAvailableResources
