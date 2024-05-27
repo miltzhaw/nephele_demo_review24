@@ -47,7 +47,7 @@ spec:
               - NET_ADMIN
           privileged: true
       - name: fxg-std    
-        image: ghcr.io/foxglove/studio:latest
+        image: robopaas/foxglove-studio:latest #ghcr.io/foxglove/studio:latest
         imagePullPolicy: Always
         resources:
           requests:
